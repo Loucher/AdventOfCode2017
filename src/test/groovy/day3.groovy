@@ -11,11 +11,11 @@ class day3 {
         while (Math.pow(2 * n - 1, 2) < input) {
             n++
         }
-        int max = Math.pow(2 * n - 1, 2)
+        int max = Math.pow(2 * n - 1, 2) as int
         int dif = max - input
         int A = n - 1
-        int P = n - 1 / 2
-        int addition = (A / P) * (P - Math.abs(dif % (2 * P) - P))
+        int P = n - 1 / 2 as int
+        int addition = (A / P) * (P - Math.abs(dif % (2 * P) - P)) as int
         int distance = n - 1 + (n - 1 - addition)
         println distance
     }
@@ -25,7 +25,7 @@ class day3 {
         println find()
     }
 
-    private int find(){
+    private int find() {
         int size = 1000
         matrix = new int[size][size]
         int center = size / 2 as int
@@ -36,29 +36,29 @@ class day3 {
         while (true) {
             while (y > center - layer) {
                 matrix[y][x] = getValue(x, y)
-                if( matrix[y][x]>input){
-                    return  matrix[y][x]
+                if (matrix[y][x] > input) {
+                    return matrix[y][x]
                 }
                 y--
             }
             while (x > center - layer) {
                 matrix[y][x] = getValue(x, y)
-                if( matrix[y][x]>input){
-                    return  matrix[y][x]
+                if (matrix[y][x] > input) {
+                    return matrix[y][x]
                 }
                 x--
             }
             while (y < center + layer) {
                 matrix[y][x] = getValue(x, y)
-                if( matrix[y][x]>input){
-                    return  matrix[y][x]
+                if (matrix[y][x] > input) {
+                    return matrix[y][x]
                 }
                 y++
             }
             while (x < center + layer + 1) {
                 matrix[y][x] = getValue(x, y)
-                if( matrix[y][x]>input){
-                    return  matrix[y][x]
+                if (matrix[y][x] > input) {
+                    return matrix[y][x]
                 }
                 x++
             }

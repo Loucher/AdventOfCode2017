@@ -1,33 +1,49 @@
 import org.junit.Test
 
-import java.lang.reflect.Array
-
 class day6 {
 
     @Test
     void part1() {
-        Set<List<Integer>> states = new HashSet<>()
-//        List<Integer> state = getClass().getResource("day6.txt").text.split("\t")*.toInteger()
-        List<Integer> state = [0, 2, 7, 0]
-        states.add(state.clone() as List<Integer>)
+
+        List<Integer> state = getClass().getResource("day6.txt").text.split("\t")*.toInteger()
+//        int cycles = calculate([0, 2, 7, 0])
+        println calculate(state)
+    }
+
+
+    private int calculate(List<Integer> state) {
+        List<int[]> states = new ArrayList<>()
+        states.add(state.clone() as int[])
         int cycles = 0
         while (true) {
-            int biggestIndex = state.indexOf(state.max())
-            int biggestValue = state.max()
-            state.set(biggestIndex, 1)
-            int index = biggestIndex + 1
-            while (biggestValue > 1) {
-                int i = index++ % state.size()
-                if (i != biggestIndex) {
-                    state.set(i, state.get(i) + 1)
-                    biggestValue--
+            int index = state.indexOf(state.max())
+            int value = state.max()
+            int share = Math.max(value / (state.size() - 1) as int, 1) as int
+            state.set(index, 0)
+            while (value > 0) {
+                index = (index + 1) % (state.size())
+                int dif = share
+                if (value < share) {
+                    dif = value
+                }
+                state.set(index, state.get(index) + dif)
+                value -= dif
+            }
+
+//            println state
+            for (int i = 0; i < states.size(); i++) {
+                List<Integer> s = states.get(i)
+                if (state == s) {
+                    println states.size() - i
+                    return ++cycles
                 }
             }
-            println state
-            if (states.contains(state)) {
-                break
+            for (List<Integer> s : states) {
+
             }
+            states.add(state as int[])
             cycles++
         }
     }
+
 }
